@@ -132,7 +132,7 @@ include('functions/common_functions.php');
           </button>
           <button class="cart pe-2">
             <i class="fas fa-cart-shopping"></i>
-            <span class="total_cart_items">8</span>
+            <span class="total_cart_items"><?php cartItem();?></span>
           </button>
           <div class="burger_menu">
             <span class="burger_menu_btn"> </span>
@@ -188,6 +188,12 @@ include('functions/common_functions.php');
     </ul>
   </nav>
 
+
+<!-- //cart function -->
+  <?php
+          cart();
+          ?>
+
   <!-- offcanvas cart -->
   <section class="cart_wrapper text-center">
     <div class="container">
@@ -204,94 +210,10 @@ include('functions/common_functions.php');
               <i class="fas fa-xmark"></i>
             </button>
           </div>
-          <div class="cart_item_details">
-            <div class="cart_item_image">
-              <img src="./img/product/1.png" alt="" />
-            </div>
-            <div class="cart_item_detail">
-              <h5>Mangoes</h5>
-              <p><span class="quantity">1</span> x <span class="rate">250</span></p>
-            </div>
-          </div>
-        </div>
-        <div class="cart_item">
-          <div class="cart_item_remove">
-            <button>
-              <i class="fas fa-xmark"></i>
-            </button>
-          </div>
-          <div class="cart_item_details">
-            <div class="cart_item_image">
-              <img src="./img/product/2.png" alt="" />
-            </div>
-            <div class="cart_item_detail">
-              <h5>Mangoes</h5>
-              <p><span class="quantity">1</span> x <span class="rate">250</span></p>
-            </div>
-          </div>
-        </div>
-        <div class="cart_item">
-          <div class="cart_item_remove">
-            <button>
-              <i class="fas fa-xmark"></i>
-            </button>
-          </div>
-          <div class="cart_item_details">
-            <div class="cart_item_image">
-              <img src="./img/product/3.png" alt="" />
-            </div>
-            <div class="cart_item_detail">
-              <h5>Mangoes</h5>
-              <p><span class="quantity">1</span> x <span class="rate">250</span></p>
-            </div>
-          </div>
-        </div>
-        <div class="cart_item">
-          <div class="cart_item_remove">
-            <button>
-              <i class="fas fa-xmark"></i>
-            </button>
-          </div>
-          <div class="cart_item_details">
-            <div class="cart_item_image">
-              <img src="./img/product/4.png" alt="" />
-            </div>
-            <div class="cart_item_detail">
-              <h5>Mangoes</h5>
-              <p><span class="quantity">1</span> x <span class="rate">250</span></p>
-            </div>
-          </div>
-        </div>
-        <div class="cart_item">
-          <div class="cart_item_remove">
-            <button>
-              <i class="fas fa-xmark"></i>
-            </button>
-          </div>
-          <div class="cart_item_details">
-            <div class="cart_item_image">
-              <img src="./img/product/5.png" alt="" />
-            </div>
-            <div class="cart_item_detail">
-              <h5>Mangoes</h5>
-              <p><span class="quantity">1</span> x <span class="rate">250</span></p>
-            </div>
-          </div>
-        </div>
-        <div class="cart_item">
-          <div class="cart_item_remove">
-            <button>
-              <i class="fas fa-xmark"></i>
-            </button>
-          </div>
-          <div class="cart_item_details">
-            <div class="cart_item_image">
-              <img src="./img/product/6.png" alt="" />
-            </div>
-            <div class="cart_item_detail">
-              <h5>Mangoes</h5>
-              <p><span class="quantity">1</span> x <span class="rate">250</span></p>
-            </div>
+          <!-- //adding cart item function -->
+          <?php
+            cartOpen();
+          ?>
           </div>
         </div>
       </div>
@@ -377,6 +299,8 @@ include('functions/common_functions.php');
                 getproducts();
                 get_unique_products();
 
+                // $ip = getIPAddress();  
+                // echo 'User Real IP Address - '.$ip;
                 ?>
 
               </div>

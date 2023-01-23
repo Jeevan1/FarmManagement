@@ -154,6 +154,11 @@
       </ul>
     </nav>
 
+    <!-- //cart function -->
+  <?php
+          cart();
+          ?>
+
     <!-- offcanvas cart -->
     <section class="cart_wrapper text-center">
       <div class="container">

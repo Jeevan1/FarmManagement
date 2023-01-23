@@ -80,6 +80,7 @@ include('functions/common_functions.php');
       
     -->
 
+
   <!-- Menu section -->
   <section class="nav_bar">
     <div class="container">
@@ -132,7 +133,7 @@ include('functions/common_functions.php');
           </button>
           <button class="cart pe-2">
             <i class="fas fa-cart-shopping"></i>
-            <span class="total_cart_items">8</span>
+            <span class="total_cart_items"><?php cartItem();?></span>
           </button>
           <div class="burger_menu">
             <span class="burger_menu_btn"> </span>
@@ -187,6 +188,11 @@ include('functions/common_functions.php');
       <li><a href="contact.html">Contact</a></li>
     </ul>
   </nav>
+
+  <!-- //adding cart function -->
+  <?php
+          cart();
+          ?>
 
   <!-- offcanvas cart -->
   <section class="cart_wrapper text-center">
@@ -319,11 +325,10 @@ include('functions/common_functions.php');
       <h1 class='text-center col-md-12'>Related Products</h1>
         <div id='' class='tab-detail text-center col-md-12'>
           <div class='product_tab'>
-            <div class='product_list'>
               <?php
                 related_products();
               ?>
-            </div>
+            
             <?php
               viewmore_related();
             ?>
@@ -416,6 +421,8 @@ include('functions/common_functions.php');
         </div>
       </div>
     </div>
+
+    
 
     <!-- Added to cart -->
     <div class="mini_cart_added">

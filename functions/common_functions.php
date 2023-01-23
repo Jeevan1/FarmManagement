@@ -59,7 +59,7 @@ function getproducts()
             </a>
           </li>
           <li>
-            <a href='#' class='add_cart_icon'>
+            <a href='index.php?add_to_cart=$product_id' class='add_cart_icon'>
               <i class='fas fa-cart-shopping'></i>
             </a>
           </li>
@@ -115,7 +115,7 @@ function get_all_products()
           </a>
         </li>
         <li>
-          <a href='#' class='add_cart_icon'>
+          <a href='index.php?add_to_cart=$product_id' class='add_cart_icon'>
             <i class='fas fa-cart-shopping'></i>
           </a>
         </li>
@@ -176,7 +176,7 @@ function get_unique_products()
           </a>
         </li>
         <li>
-          <a href='#' class='add_cart_icon'>
+          <a href='index.php?add_to_cart=$product_id' class='add_cart_icon'>
             <i class='fas fa-cart-shopping'></i>
           </a>
         </li>
@@ -254,7 +254,7 @@ function product_detail()
           </p>
 
           <div class='product_detail_btn'>
-            <a href='#' class='more-btn'>Add to Cart</a>
+            <a href='index.php?add_to_cart=$product_id' class='more-btn'>Add to Cart</a>
             <a href='#' class='more-btn'>Add to Wishlist</a>
           </div>
         </div>
@@ -298,7 +298,7 @@ function related_products()
     if (!isset($_GET['category'])) {
       $product_category = $_GET['product_id'];
       $product_id_title = $_GET['product_title'];
-      $select_query = "Select * from `products`product_keywords like '%$product_id_title%' order by rand() limit 0,4";
+      $select_query = "Select * from `products` where product_keywords like '%$product_id_title%' order by rand() limit 0,4";
       $result_query = mysqli_query($con, $select_query);
       $num_of_rows = mysqli_num_rows($result_query);
       if ($num_of_rows == 0) {
@@ -313,6 +313,7 @@ function related_products()
         $product_after_price = $row['product_after_price'];
         echo "
   <!-- related products -->
+          <div class='product_list d-inline-block'>
               <div class='product_list_item'>
                 <div class='product_list_item_image'>
                   <a href=''./product_details.php?product_id=$product_id&product_title=$product_title'>
@@ -332,7 +333,7 @@ function related_products()
                       </a>
                     </li>
                     <li>
-                      <a href='#' class='add_cart_icon'>
+                      <a href='index.php?add_to_cart=$product_id' class='add_cart_icon'>
                         <i class='fas fa-cart-shopping'></i>
                       </a>
                     </li>
@@ -343,6 +344,7 @@ function related_products()
                     </li>
                   </ul>
                 </div>
+              </div>
               </div>
               
   ";
@@ -425,7 +427,7 @@ function search_product()
             </a>
           </li>
           <li>
-            <a href='#' class='add_cart_icon'>
+            <a href='index.php?add_to_cart=$product_id' class='add_cart_icon'>
               <i class='fas fa-cart-shopping'></i>
             </a>
           </li>
@@ -441,3 +443,106 @@ function search_product()
     }
   }
 }
+
+
+//function to get ip address
+function getIPAddress() {  
+  //whether ip is from the share internet  
+   if(!empty($_SERVER['HTTP_CLIENT_IP'])) {  
+              $ip = $_SERVER['HTTP_CLIENT_IP'];  
+      }  
+  //whether ip is from the proxy  
+  elseif (!empty($_SERVER['HTTP_X_FORWARDED_FOR'])) {  
+              $ip = $_SERVER['HTTP_X_FORWARDED_FOR'];  
+   }  
+//whether ip is from the remote address  
+  else{  
+           $ip = $_SERVER['REMOTE_ADDR'];  
+   }  
+   return $ip;  
+}  
+// $ip = getIPAddress();  
+// echo 'User Real IP Address - '.$ip;
+
+//cart function
+function cart(){
+  if(isset($_GET['add_to_cart'])){
+    global $con;
+    $ip = getIPAddress();
+    $get_product_id=$_GET['add_to_cart'];
+    $get_product = "Select * from `products` where product_id=$get_product_id";
+    $result_query_product = mysqli_query($con, $get_product);
+    $row = mysqli_fetch_assoc($result_query_product);
+    $product_image = $row['product_image'];
+    $product_title = $row['product_title'];
+    $product_price = $row['product_price'];
+    $select_query = "Select * from `cart_details` where ip_address='$ip' and product_id=$get_product_id";
+    
+    $result_query = mysqli_query($con, $select_query);
+    $num_of_rows = mysqli_num_rows($result_query);
+    if($num_of_rows>0){
+      echo "<script>alert('This product is already present inside cart')</script>";
+      echo "<script>window.open('index.php','_self')</script>";  //self-> redirect to same page.
+    }
+    else{
+    $insert_query = "INSERT INTO `cart_details`(`product_id`, `ip_address`, `product_title`, `product_price`, `quantity`, `product_image`) VALUES ($get_product_id,'$ip','$product_title',$product_price,0,'$product_image')";
+    $result_query = mysqli_query($con, $insert_query);
+    echo "<script>alert('Product is added to cart')</script>";
+    echo "<script>window.open('index.php','_self')</script>";
+    }
+  }
+}
+
+
+//function to get cart number
+function cartItem(){
+  if(isset($_GET['add_to_cart'])){
+    global $con;
+    $ip = getIPAddress();
+    $select_query = "Select * from `cart_details` where ip_address='$ip'";
+    
+    $result_query = mysqli_query($con, $select_query);
+    $count_cart_item = mysqli_num_rows($result_query);
+  }
+  else{
+    global $con;
+    $ip = getIPAddress();
+    $select_query = "Select * from `cart_details` where ip_address='$ip'"; 
+    $result_query = mysqli_query($con, $select_query);
+    $count_cart_item = mysqli_num_rows($result_query);
+  }
+  echo $count_cart_item;
+}
+
+//cart open function
+function cartOpen()
+{
+  global $con;  
+  $ip = getIPAddress();
+  $get_cart_ip = "Select * from `cart_details` where ip_address='$ip'";
+  $query_cart = mysqli_query($con, $get_cart_ip);
+
+    while ($row = mysqli_fetch_assoc($query_cart)) {
+      $product_id = $row['product_id'];
+      $product_image = $row['product_image'];
+      $product_title = $row['product_title'];
+      $product_price = $row['product_price'];
+      $quantity = $row['quantity'];
+      echo "
+      <div class='cart_item_details'>
+            <div class='cart_item_image'>
+              <img src='./dashboard/product_image/$product_image' alt='$product_image' />
+            </div>
+            <div class='cart_item_detail'>
+              <h5>$product_title</h5>
+              <p><span class='quantity'>$quantity</span> x <span class='rate'>$product_price</span></p>
+            </div>
+          </div>
+        
+    ";
+    }
+    
+}
+
+
+?>
