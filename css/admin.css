@@ -171,7 +171,7 @@
   margin-bottom: 15px;
   padding: 5px 15px;
   border: transparent;
-  border-bottom: 2px solid #ddd;
+  border-bottom: 2px solid rgb(85, 194, 85);
   outline: none;
 }
 .new_product .add_new_product input:focus,
@@ -289,3 +289,8 @@
   width: 100%;
   height: 100%;
 }/*# sourceMappingURL=admin.css.map */
+
+/* //category */
+.container.category legend{
+  border-bottom: 5px solid #43aa5c;;
+}

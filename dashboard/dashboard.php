@@ -59,8 +59,8 @@
             <!-- Admin Menu -->
             <nav class="dash_menu">
               <ul class="dash_menu_items">
-                <li class="dash_menu_items_item">
-                  <a href="dashboard.html">
+                <li class="dash_menu_items_item active">
+                  <a href="dashboard.php?dashboard">
                     <i class="fa-solid fa-gauge"></i>
                     Dashboard
                   </a>
@@ -72,33 +72,36 @@
                   </a>
                   <ul class="dash_menu_dropdown_items">
                     <li>
-                      <a href="post.html">All Post</a>
+                      <a href="dashboard.php?post">All Post</a>
                     </li>
                     <li>
-                      <a href="product-add.html">Add New Product</a>
-                    </li>
-                    <li class="active">
-                      <a href="blog-add.html">Add New Blog</a>
+                      <a href="dashboard.php?category">Add New Category</a>
                     </li>
                     <li>
-                      <a href="plan.html">Add New Plan</a>
+                      <a href="dashboard.php?product-add">Add New Product</a>
+                    </li>
+                    <li>
+                      <a href="dashboard.php?blog-add">Add New Blog</a>
+                    </li>
+                    <li>
+                      <a href="dashboard.php?plan">Add New Plan</a>
                     </li>
                   </ul>
                 </li>
                 <li class="dash_menu_items_item">
-                  <a href="comments.html">
+                  <a href="comments.php">
                     <i class="fas fa-comments"></i>
                     Comments
                   </a>
                 </li>
                 <li class="dash_menu_items_item">
-                  <a href="media.html">
+                  <a href="media.php">
                     <i class="fa-solid fa-image"></i>
                     Media
                   </a>
                 </li>
                 <li class="dash_menu_items_item">
-                  <a href="user.html">
+                  <a href="user.php">
                     <i class="fas fa-people-group"></i>
                     Users
                   </a>
@@ -106,29 +109,39 @@
               </ul>
             </nav>
           </div>
-          <div class="col-lg-10 col-md-12 col-sm-12">
-            <div class="container">
+          <div class="col-lg-10 col-md-12 col-sm-12"><div class="container">
               <div class="new_product">
-                <form action="" class="add_new_product">
-                  <fieldset class="name">
-                    <!-- <legend>Product Title</legend> -->
-                    <label for="blog_title">Blog Title</label>
-                    <input type="text" name="blog_title" placeholder="Add a Title" />
-                  </fieldset>
-
-                  <div class="new_product_desctiption">
-                    <label for="description">Blog Description</label>
-                    <textarea name="description" id="" cols="30" rows="10"></textarea>
-                  </div>
-                  <div class="new_product_image">
-                    <label for="prodcut-image">Featured Image</label>
-                    <input type="file" name="product-image" id="" />
-                  </div>
-                  <button type="submit" class="update">Submit To Review</button>
-                </form>
-              </div>
-            </div>
+            <?php
+            // include_once('das.php');
+            // dashboard blog
+            if(isset($_GET['dashboard'])){
+              
+              include('das.php');
+            }
+            // post blog
+              if(isset($_GET['post'])){
+                include('post.php');
+              }
+              // add-product blog
+              if(isset($_GET['product-add'])){
+                include('product-add.php');
+              }
+              // add blog blog
+              if(isset($_GET['blog-add'])){
+                include('blog-add.php');
+              }
+              // add-plan blog
+              if(isset($_GET['plan'])){
+                include('plan.php');
+              }
+              // add-category blog
+              if(isset($_GET['category'])){
+                include('insert_category.php');
+              }
+            ?>
           </div>
+        </div>
+      </div>
         </div>
       </div>
     </div>
