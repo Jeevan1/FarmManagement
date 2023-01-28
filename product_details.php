@@ -210,108 +210,24 @@ include('functions/common_functions.php');
               <i class="fas fa-xmark"></i>
             </button>
           </div>
-          <div class="cart_item_details">
-            <div class="cart_item_image">
-              <img src="./img/product/1.png" alt="" />
-            </div>
-            <div class="cart_item_detail">
-              <h5>Mangoes</h5>
-              <p><span class="quantity">1</span> x <span class="rate">250</span></p>
-            </div>
-          </div>
-        </div>
-        <div class="cart_item">
-          <div class="cart_item_remove">
-            <button>
-              <i class="fas fa-xmark"></i>
-            </button>
-          </div>
-          <div class="cart_item_details">
-            <div class="cart_item_image">
-              <img src="./img/product/2.png" alt="" />
-            </div>
-            <div class="cart_item_detail">
-              <h5>Mangoes</h5>
-              <p><span class="quantity">1</span> x <span class="rate">250</span></p>
-            </div>
-          </div>
-        </div>
-        <div class="cart_item">
-          <div class="cart_item_remove">
-            <button>
-              <i class="fas fa-xmark"></i>
-            </button>
-          </div>
-          <div class="cart_item_details">
-            <div class="cart_item_image">
-              <img src="./img/product/3.png" alt="" />
-            </div>
-            <div class="cart_item_detail">
-              <h5>Mangoes</h5>
-              <p><span class="quantity">1</span> x <span class="rate">250</span></p>
-            </div>
-          </div>
-        </div>
-        <div class="cart_item">
-          <div class="cart_item_remove">
-            <button>
-              <i class="fas fa-xmark"></i>
-            </button>
-          </div>
-          <div class="cart_item_details">
-            <div class="cart_item_image">
-              <img src="./img/product/4.png" alt="" />
-            </div>
-            <div class="cart_item_detail">
-              <h5>Mangoes</h5>
-              <p><span class="quantity">1</span> x <span class="rate">250</span></p>
-            </div>
-          </div>
-        </div>
-        <div class="cart_item">
-          <div class="cart_item_remove">
-            <button>
-              <i class="fas fa-xmark"></i>
-            </button>
-          </div>
-          <div class="cart_item_details">
-            <div class="cart_item_image">
-              <img src="./img/product/5.png" alt="" />
-            </div>
-            <div class="cart_item_detail">
-              <h5>Mangoes</h5>
-              <p><span class="quantity">1</span> x <span class="rate">250</span></p>
-            </div>
-          </div>
-        </div>
-        <div class="cart_item">
-          <div class="cart_item_remove">
-            <button>
-              <i class="fas fa-xmark"></i>
-            </button>
-          </div>
-          <div class="cart_item_details">
-            <div class="cart_item_image">
-              <img src="./img/product/6.png" alt="" />
-            </div>
-            <div class="cart_item_detail">
-              <h5>Mangoes</h5>
-              <p><span class="quantity">1</span> x <span class="rate">250</span></p>
-            </div>
+          <!-- //adding cart item function -->
+          <?php
+            cartOpen();
+          ?>
           </div>
         </div>
       </div>
 
       <div class="cart_total py-4 d-flex justify-content-between">
-        <h1 class="sm-heading">Subtotal</h1>
-        <span class="total">NPR. 5000 /-</span>
+        <h1 class="sm-heading px-3">Subtotal:</h1>
+        <span class="total px-5"><?php totalPriceCart();?> /-</span>
       </div>
 
       <a href="#" class="checkout">Checkout</a>
       <p>Free Shipping on All Orders Over NPR. 1500!</p>
     </div>
   </section>
-
+  
   <!-- Product Detail -->
   <?php
     product_detail();

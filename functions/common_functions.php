@@ -1,6 +1,4 @@
 <?php
-//including connect file
-include('./includes/connect.php');
 
 //getting categories
 function getcategory()
@@ -220,25 +218,25 @@ function product_detail()
       <div class='row'>
         <div class='col-xl-6 col-md-12 col-sm-12'>
           <div class='image-slider'>
-            <div class='image'>
+            <div id='product_detail_image' class='image'>
               <img src='./dashboard/product_image/$product_image' alt='' />
             </div>
           </div>
           <ul class='image_slider_nav'>
-            <li>
-              <a href='#'>
-                <img src='./img/blog/11.jpg' alt='' />
-              </a>
+            <li class='detail_img'>
+             
+                <img  src='./img/blog/11.jpg' alt='' />
+              
             </li>
-            <li>
-              <a href='#'>
+            <li class='detail_img'>
+             
                 <img src='./img/blog/12.jpg' alt='' />
-              </a>
+              
             </li>
-            <li>
-              <a href='#'>
+            <li class='detail_img'>
+             
                 <img src='./img/blog/13.jpg' alt='' />
-              </a>
+              
             </li>
           </ul>
         </div>
@@ -316,7 +314,7 @@ function related_products()
           <div class='product_list d-inline-block'>
               <div class='product_list_item'>
                 <div class='product_list_item_image'>
-                  <a href=''./product_details.php?product_id=$product_id&product_title=$product_title'>
+                  <a href='./product_details.php?product_id=$product_id&product_title=$product_title'>
                     <img src='./dashboard/product_image/$product_image' alt='Kiwi' />
                   </a>
                 </div>
@@ -544,5 +542,48 @@ function cartOpen()
     
 }
 
+//total price cart function
+function totalPriceCart(){
+  global $con; 
+  $total=0; 
+  $ip = getIPAddress();
+  $cart_query = "Select * from `cart_details` where ip_address='$ip'";
+  $result = mysqli_query($con,$cart_query);
+  while($row=mysqli_fetch_array($result)){
+    $product_id = $row['product_id'];
+    $select_products = "Select * from `cart_details` where product_id=$product_id";
+    $result_product= mysqli_query($con, $select_products);
+    while($row_product_price = mysqli_fetch_array($result_product)){
+    $item_price = $row_product_price['product_price'] ;
 
-?>
+    $product_price = array($item_price );
+    $product_price_sum = array_sum($product_price);
+    $total+=$product_price_sum;
+  }
+}
+
+  // if(isset($_GET)){
+    echo "$total";
+  // }
+  
+  
+}
+  
+  //delete cart function
+  function remove_cart_item(){
+    global $con;
+  if(isset($_POST['remove_cart'])){
+      $remove_id=$_POST['remove_cart'];
+      echo $remove_id;
+      $delete_query = "Delete from `cart_details` where product_id=$remove_id";
+      $run_delete=mysqli_query($con,$delete_query);
+      if($run_delete){
+        echo "<script>window.open('cart.php','_self'</script>";
+      }
+    }
+  }
+ 
+ //function call to remove item
+echo $remove_item = remove_cart_item();
+
+// ?>

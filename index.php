@@ -219,11 +219,11 @@ include('functions/common_functions.php');
       </div>
 
       <div class="cart_total py-4 d-flex justify-content-between">
-        <h1 class="sm-heading">Subtotal</h1>
-        <span class="total">NPR. 5000 /-</span>
+        <h1 class="sm-heading px-3">Subtotal:</h1>
+        <span class="total px-5"><?php totalPriceCart();?> /-</span>
       </div>
 
-      <a href="#" class="checkout">Checkout</a>
+      <a href="user_area/checkout.php" class="checkout">Checkout</a>
       <p>Free Shipping on All Orders Over NPR. 1500!</p>
     </div>
   </section>

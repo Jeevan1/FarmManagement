@@ -170,3 +170,17 @@ function showWishMessage() {
 function hideWishMsg() {
   wishMsg.classList.remove("active");
 }
+
+
+
+// image show on click-product_detail page
+
+const product_detail_image = document.getElementById('product_detail_image');
+const detail_img = document.querySelectorAll('.detail_img');
+
+for (const i in detail_img) {
+  i.addEventListener('click',()=>{
+    product_detail_image.innerHTML = i.innerHTML;
+  });
+}
+
