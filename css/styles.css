@@ -180,6 +180,9 @@
 .nav_link:hover {
   color: #43aa5c;
 }
+.profile{
+  display: none;
+}
 
 @media (min-width: 992px) {
   .nav_bar_right .burger_menu {

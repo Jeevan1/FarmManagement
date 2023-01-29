@@ -2,7 +2,7 @@
 <?php
 include('includes/connect.php');
 include('functions/common_functions.php');
-
+session_start();
 ?>
 
 
@@ -122,6 +122,13 @@ include('functions/common_functions.php');
             <li><a href="farmers.html">Farmers</a></li>
             <li><a href="blog.html">Blogs</a></li>
             <li><a href="contact.html">Contact</a></li>
+            <?php
+      if(!isset($_SESSION['email'])){
+        echo "<li><a href='user_area/user_login.php'>LogIn</a></li>";
+      }else{
+        echo "<li><a href='user_area/user_login.php'>LogOut</a></li>";
+      }
+      ?>
           </ul>
         </div>
         <div class="nav_bar_right text-end">
@@ -186,6 +193,13 @@ include('functions/common_functions.php');
       <li><a href="farmers.html">Farmers</a></li>
       <li><a href="blog.html">Blogs</a></li>
       <li><a href="contact.html">Contact</a></li>
+      <?php
+      if(!isset($_SESSION['email'])){
+        echo "<li><a href='user_area/user_login.php'>LogIn</a></li>";
+      }else{
+        echo "<li><a href='user_area/user_login.php'>LogOut</a></li>";
+      }
+      ?>
     </ul>
   </nav>
 

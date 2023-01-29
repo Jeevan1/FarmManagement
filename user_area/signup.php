@@ -2,6 +2,7 @@
 <?php
 include('../includes/connect.php');
 include('../functions/user_login.php');
+session_start();
 ?>
 
 <!DOCTYPE html>

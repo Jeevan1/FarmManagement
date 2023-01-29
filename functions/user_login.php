@@ -30,6 +30,7 @@ if(isset($_POST['user_register']) && $_SERVER['REQUEST_METHOD'] == "POST"){
     $insert_query = "INSERT INTO `user_table`(`username`, `email`, `phone`, `role`,`role_company_name`,`address`, `password`, `user_image`, `terms`, `user_ip`,`send_email`) VALUES ('$user_name','$user_email',$contact,'$user_role','$role_company','$address','$hash_password','$user_image','$terms','$user_ip','$send_email ')";
     $sql_execute = mysqli_query($con,$insert_query);
     if($sql_execute){
+        $_SESSION['email']=$user_email;
         echo "<script>alert('Register successfully!');</script>";
     }
     else{
@@ -41,7 +42,7 @@ $select_cart_items="Select * from `cart_details` where ip_address = '$user_ip'";
 $result_cart = mysqli_query($con,$select_cart_items);
 $rows_count = mysqli_num_rows($result_cart);
 if($rows_count>0){
-    $_SESSION['username']=$user_email;
+    $_SESSION['email']=$user_email;
     echo "<script>alert('You have items in cart');</script>";
     echo "<script>window.open('../user_area/checkout.php','_self');</script>";
 }
