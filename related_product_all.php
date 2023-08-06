@@ -28,43 +28,8 @@
   </head>
   <body>
     <!-- Top header -->
-    <header class="header-wrapper">
-      <div class="container">
-        <div class="row">
-          <div class="d-none d-lg-block col-lg-12">
-            <div class="grid-container d-flex justify-content-between">
-              <div class="about d-flex align-items-center">
-                <div class="location">
-                  <i class="fas fa-location-dot"></i>
-                  <span>New Baneshwor Kathmandu Nepal</span>
-                </div>
-                <div class="email">
-                  <i class="fas fa-envelope-open-text"></i>
-                  <a href="mailto:support@digitalfarm.com">support@digitalfarm.com</a>
-                </div>
-                <div class="phone">
-                  <i class="fas fa-phone"></i>
-                  <a href="tel:9812767046">+977 9812767046</a>
-                </div>
-              </div>
-              <div class="socials">
-                <a href="#">
-                  <i class="fab fa-facebook"></i>
-                </a>
+    <?php include('./includes/top_header.php'); ?>
 
-                <a href="#">
-                  <i class="fab fa-twitter"></i>
-                </a>
-
-                <a href="#">
-                  <i class="fab fa-instagram"></i>
-                </a>
-              </div>
-            </div>
-          </div>
-        </div>
-      </div>
-    </header>
     <!-- 
     Menu bar 
       1. Logo
@@ -72,105 +37,11 @@
       
     -->
 
-    <!-- Menu section -->
-    <section class="nav_bar">
-      <div class="container">
-        <div class="row justify-content-end align-items-center">
-          <div class="nav_bar_left">
-            <a href="index.html">
-              <img src="./img/company/logo.png" alt="" />
-            </a>
-          </div>
-          <div class="nav_bar_center">
-            <ul class="menu_items d-flex justify-content-between d-none d-lg-flex">
-              <li><a href="index.html" class="active">Home</a></li>
-              <li class="dropdown">
-                <a href="#">Products</a>
-                <ul class="dropdown_items">
-                  <li><a href="vegetable.html">Vegetables</a></li>
-                  <li><a href="fruits.html">Fruits</a></li>
-                  <li><a href="bread.html">Bread</a></li>
-                  <li><a href="butter.html">Butter and Cream</a></li>
-                  <li><a href="fertilizer.html">Fertilizers</a></li>
-                  <li><a href="machines.html">Farm Equipments</a></li>
-                  <li><a href="oil.html">Oil and Vinegar</a></li>
-                  <li><a href="seafood.html">Fish and Sea Food</a></li>
-                  <li><a href="seed.html">Quality Seeds</a></li>
-                </ul>
-              </li>
-              <li><a href="farmers.html">Vendors</a></li>
-              <li><a href="farmers.html">Farmers</a></li>
-              <li><a href="blog.html">Blogs</a></li>
-              <li><a href="contact.html">Contact</a></li>
-              <?php
-      if(!isset($_SESSION['email'])){
-        echo "<li><a href='user_area/user_login.php'>LogIn</a></li>";
-      }else{
-        echo "<li><a href='user_area/user_login.php'>LogOut</a></li>";
-      }
-      ?>
-            </ul>
-          </div>
-          <div class="nav_bar_right text-end">
-            <button class="profile pe-2">
-              <i class="fas fa-user"></i>
-            </button>
-            <button class="search-icon pe-2">
-              <i class="fas fa-magnifying-glass"></i>
-            </button>
-            <button class="cart pe-2">
-              <i class="fas fa-cart-shopping"></i>
-              <span class="total_cart_items"><?php cartItem();?></span>
-            </button>
-            <div class="burger_menu">
-              <span class="burger_menu_btn"> </span>
-            </div>
-          </div>
-        </div>
-      </div>
-    </section>
+  <!-- Menu section -->
+  <?php include('./includes/menu_section.php'); ?>
 
-    <!-- Mobile-Menu Items -->
-    <nav class="nav justify-content-end">
-      <ul class="nav_items">
-        <li class="nav_item">
-          <div class="mobile-header d-flex justify-content-between">
-            <a href="#">
-              <img src="./img/company/logo.png" alt="" />
-            </a>
-            <button class="close_nav">
-              <i class="fas fa-xmark fa-2x"></i>
-            </button>
-          </div>
-        </li>
-        <li><a href="index.html" class="active">Home</a></li>
-        <li class="dropdown">
-          <a href="#">Products</a>
-          <ul class="dropdown_items">
-            <li><a href="vegetable.html">Vegetables</a></li>
-            <li><a href="fruits.html">Fruits</a></li>
-            <li><a href="bread.html">Bread</a></li>
-            <li><a href="butter.html">Butter and Cream</a></li>
-            <li><a href="fertilizer.html">Fertilizers</a></li>
-            <li><a href="machines.html">Farm Equipments</a></li>
-            <li><a href="oil.html">Oil and Vinegar</a></li>
-            <li><a href="seafood.html">Fish and Sea Food</a></li>
-            <li><a href="seed.html">Quality Seeds</a></li>
-          </ul>
-        </li>
-        <li><a href="farmers.html">Vendors</a></li>
-        <li><a href="farmers.html">Farmers</a></li>
-        <li><a href="blog.html">Blogs</a></li>
-        <li><a href="contact.html">Contact</a></li>
-        <?php
-      if(!isset($_SESSION['email'])){
-        echo "<li><a href='user_area/user_login.php'>LogIn</a></li>";
-      }else{
-        echo "<li><a href='user_area/user_login.php'>LogOut</a></li>";
-      }
-      ?>
-      </ul>
-    </nav>
+  <!-- Mobile-Menu Items -->
+  <?php include('./includes/mobile_menu.php'); ?>
 
     <!-- //cart function -->
   <?php
@@ -178,122 +49,7 @@
           ?>
 
     <!-- offcanvas cart -->
-    <section class="cart_wrapper text-center">
-      <div class="container">
-        <div class="cart_box">
-          <div class="cart_title d-flex justify-content-between">
-            <h1 class="sm-heading">Cart</h1>
-            <button id="close_cart">
-              <i class="fas fa-xmark"></i>
-            </button>
-          </div>
-          <div class="cart_item">
-            <div class="cart_item_remove">
-              <button>
-                <i class="fas fa-xmark"></i>
-              </button>
-            </div>
-            <div class="cart_item_details">
-              <div class="cart_item_image">
-                <img src="./img/product/1.png" alt="" />
-              </div>
-              <div class="cart_item_detail">
-                <h5>Mangoes</h5>
-                <p><span class="quantity">1</span> x <span class="rate">250</span></p>
-              </div>
-            </div>
-          </div>
-          <div class="cart_item">
-            <div class="cart_item_remove">
-              <button>
-                <i class="fas fa-xmark"></i>
-              </button>
-            </div>
-            <div class="cart_item_details">
-              <div class="cart_item_image">
-                <img src="./img/product/2.png" alt="" />
-              </div>
-              <div class="cart_item_detail">
-                <h5>Mangoes</h5>
-                <p><span class="quantity">1</span> x <span class="rate">250</span></p>
-              </div>
-            </div>
-          </div>
-          <div class="cart_item">
-            <div class="cart_item_remove">
-              <button>
-                <i class="fas fa-xmark"></i>
-              </button>
-            </div>
-            <div class="cart_item_details">
-              <div class="cart_item_image">
-                <img src="./img/product/3.png" alt="" />
-              </div>
-              <div class="cart_item_detail">
-                <h5>Mangoes</h5>
-                <p><span class="quantity">1</span> x <span class="rate">250</span></p>
-              </div>
-            </div>
-          </div>
-          <div class="cart_item">
-            <div class="cart_item_remove">
-              <button>
-                <i class="fas fa-xmark"></i>
-              </button>
-            </div>
-            <div class="cart_item_details">
-              <div class="cart_item_image">
-                <img src="./img/product/4.png" alt="" />
-              </div>
-              <div class="cart_item_detail">
-                <h5>Mangoes</h5>
-                <p><span class="quantity">1</span> x <span class="rate">250</span></p>
-              </div>
-            </div>
-          </div>
-          <div class="cart_item">
-            <div class="cart_item_remove">
-              <button>
-                <i class="fas fa-xmark"></i>
-              </button>
-            </div>
-            <div class="cart_item_details">
-              <div class="cart_item_image">
-                <img src="./img/product/5.png" alt="" />
-              </div>
-              <div class="cart_item_detail">
-                <h5>Mangoes</h5>
-                <p><span class="quantity">1</span> x <span class="rate">250</span></p>
-              </div>
-            </div>
-          </div>
-          <div class="cart_item">
-            <div class="cart_item_remove">
-              <button>
-                <i class="fas fa-xmark"></i>
-              </button>
-            </div>
-            <div class="cart_item_details">
-              <div class="cart_item_image">
-                <img src="./img/product/6.png" alt="" />
-              </div>
-              <div class="cart_item_detail">
-                <h5>Mangoes</h5>
-                <p><span class="quantity">1</span> x <span class="rate">250</span></p>
-              </div>
-            </div>
-          </div>
-        </div>
-
-        <div class="cart_total py-4 d-flex justify-content-between">
-          <h1 class="sm-heading">Subtotal</h1>
-          <span class="total">NPR. 5000 /-</span>
-        </div>
-
-        <a href="#" class="checkout">Checkout</a>
-        <p>Free Shipping on All Orders Over NPR. 1500!</p>
-      </div>
-    </section>
+    <?php include('./includes/offcanvas_cart.php');?>
 
     <!-- Product tab
     1. Prodcut tab

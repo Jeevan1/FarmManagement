@@ -1,4 +1,30 @@
 
+
+
+// pre register
+var options = document.querySelectorAll(".options_details");
+var radioOptions = document.querySelectorAll(".radio_options");
+const role = ["Farmer", "Consumer", "Vendor","Supplier"];
+const chooseProfession = document.getElementById("choose-profession");
+
+for (i = 0; i < radioOptions.length; i++) {
+  radioOptions[i].addEventListener("click", activeOption);
+}
+function activeOption() {
+  for (i = 0; i < radioOptions.length; i++) {
+    if (radioOptions[i].checked) {
+      options[i].classList.add("active");
+      var profession = document.getElementById("profession");
+      profession.innerHTML = role[i];
+
+      chooseProfession.disabled = false;
+    } else {
+      options[i].classList.remove("active");
+      chooseProfession.disabled = true;
+    }
+  }
+}
+
 // Mobile Menu
 var burgerMenu = document.querySelector(".burger_menu");
 var nav = document.querySelector(".nav");
@@ -34,6 +60,7 @@ function closeSearch() {
   searchSpace.classList.remove("active");
 }
 
+
 // Offcanvas Cart
 
 var cart = document.querySelector(".cart");
@@ -48,6 +75,22 @@ cart.addEventListener("click", (showOffCanvasCart) => {
 // Close Cart Function
 closeCart.addEventListener("click", (hideOffCanvasCart) => {
   offCanvasCart.classList.remove("active");
+});
+
+// view order
+
+var order = document.querySelector(".order");
+var offCanvasOrder = document.querySelector(".order_wrapper");
+var closeOrder = document.getElementById("close_order");
+
+// show Order function
+order.addEventListener("click", (showOffCanvasOrder) => {
+  offCanvasOrder.classList.add("active");
+});
+
+// Close Order Function
+closeOrder.addEventListener("click", (hideOffCanvasOrder) => {
+  offCanvasOrder.classList.remove("active");
 });
 
 // Product tab
@@ -106,29 +149,21 @@ function closeModal() {
   productView.classList.remove("active");
   productViewBOx.classList.remove("active");
 }
-// Increase decrease cart item
+
 const increaseCart = document.querySelector(".inc");
 const decreaseCart = document.querySelector(".dec");
 const cartProductValue = document.querySelector(".cart_quantity");
 
-increaseCart.addEventListener("click", increase);
-function increase() {
+increaseCart.addEventListener("click", increaseCartValue);
+function increaseCartValue() {
   cartProductValue.value++;
-  if (cartProductValue.value <= 0) {
-    decreaseCart.disabled = true;
-  } else {
-    decreaseCart.disabled = false;
-  }
 }
+decreaseCart.addEventListener("click", decreaseCartValue);
 
-decreaseCart.addEventListener("click", decrease);
-
-function decrease() {
+function decreaseCartValue() {
   cartProductValue.value--;
-  if (cartProductValue.value <= 0) {
-    decreaseCart.disabled = true;
-  } else {
-    decreaseCart.disabled = false;
+  if (cartProductValue.value < 0) {
+    cartProductValue.value = 0;
   }
 }
 
@@ -171,16 +206,57 @@ function hideWishMsg() {
   wishMsg.classList.remove("active");
 }
 
+// Account btn
 
+var profileBtn = document.querySelectorAll(".profile");
 
-// image show on click-product_detail page
-
-const product_detail_image = document.getElementById('product_detail_image');
-const detail_img = document.querySelectorAll('.detail_img');
-
-for (const i in detail_img) {
-  i.addEventListener('click',()=>{
-    product_detail_image.innerHTML = i.innerHTML;
-  });
+profileBtn.forEach((item) => {
+  item.addEventListener("click", redirectBtn);
+});
+function redirectBtn() {
+  location.replace("../account.html");
 }
 
+// Detail page Image slider
+function changeImg(url, e) {
+  document.getElementById("slider_img").src = url;
+  let nodes = document.getElementById("thumb_img");
+  let img_child = nodes.children;
+
+  for (i = 0; i < img_child.length; i++) {
+    img_child[i].classList.remove("active");
+  }
+  e.classList.add("active");
+}
+
+
+//active_links
+const activePage = window.location.pathname;
+const navlinks = document.querySelectorAll('.menu_items li a');
+forEach(link =>{
+  if(link.href.includes(`${activePage}`)){
+    link.classList.add('active');
+  }
+}
+  );
+
+  //rating
+function rating(){
+const imageInput = document.getElementById("imageInput");
+const previewImage = document.getElementById("previewImage");
+
+// add an event listener to the input element
+imageInput.addEventListener("change", function() {
+  // create a new FileReader object
+  const reader = new FileReader();
+  
+  // define what should happen when the reader loads the file
+  reader.onload = function(event) {
+    // set the src attribute of the preview image to the data URL
+    previewImage.src = event.target.result;
+  };
+  
+  // read the file as a data URL
+  reader.readAsDataURL(imageInput.files[0]);
+});
+}

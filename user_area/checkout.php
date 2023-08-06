@@ -2,6 +2,7 @@
 <?php
 include('../includes/connect.php');
 include('../functions/common_functions.php');
+include '../includes/payenment/setting.php';
 session_start();
 ?>
 
@@ -31,48 +32,61 @@ session_start();
   <meta http-equiv="X-UA-Compatible" content="IE=edge" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Fresh - Digital Farm Nepal</title>
+
+  <style>
+    .card {
+      height: 50%;
+      overflow-x: hidden;
+      /* overflow-y: hidden; */
+    }
+
+    .card:hover {
+      /* height: 50%; */
+      overflow-x: hidden;
+    }
+
+    .card-header {
+      background-color: #fff;
+      border-bottom: 1px solid #aaaa !important;
+    }
+
+    p {
+      font-size: 18px;
+    }
+
+    .small {
+      text-align: right;
+      font-size: 12px !important;
+    }
+
+    .form-control-sm {
+      height: calc(2.2em + .5rem + 2px);
+      font-size: .875rem;
+      line-height: 1.5;
+      border-radius: 0;
+    }
+
+    .cursor-pointer {
+      cursor: pointer;
+    }
+
+    .bell {
+      opacity: 0.5;
+      cursor: pointer;
+    }
+
+    @media (max-width: 767px) {
+      .breadcrumb-item+.breadcrumb-item {
+        padding-left: 0
+      }
+    }
+  </style>
 </head>
 
 <body>
 
   <!-- Top header -->
-  <header class="header-wrapper">
-    <div class="container">
-      <div class="row">
-        <div class="d-none d-lg-block col-lg-12">
-          <div class="grid-container d-flex justify-content-between">
-            <div class="about d-flex align-items-center">
-              <div class="location">
-                <i class="fas fa-location-dot"></i>
-                <span>New Baneshwor Kathmandu Nepal</span>
-              </div>
-              <div class="email">
-                <i class="fas fa-envelope-open-text"></i>
-                <a href="mailto:support@digitalfarm.com">support@digitalfarm.com</a>
-              </div>
-              <div class="phone">
-                <i class="fas fa-phone"></i>
-                <a href="tel:9812767046">+977 9812767046</a>
-              </div>
-            </div>
-            <div class="socials">
-              <a href="#">
-                <i class="fab fa-facebook"></i>
-              </a>
-
-              <a href="#">
-                <i class="fab fa-twitter"></i>
-              </a>
-
-              <a href="#">
-                <i class="fab fa-instagram"></i>
-              </a>
-            </div>
-          </div>
-        </div>
-      </div>
-    </div>
-  </header>
+  <?php include('../includes/top_header.php') ?>
   <!-- 
     Menu bar 
       1. Logo
@@ -81,140 +95,19 @@ session_start();
     -->
 
   <!-- Menu section -->
-  <section class="nav_bar">
+  <?php include('../includes/dashboard/menu.php') ?>
+
+
+  <!-- Checkout section -->
+  <section class="checkout">
     <div class="container">
-      <div class="row justify-content-end align-items-center">
-        <div class="nav_bar_left">
-          <a href="index.html">
-            <img src="../img/company/logo.png" alt="" />
-          </a>
-        </div>
-        <div class="nav_bar_center">
-          <ul class="menu_items d-flex justify-content-between d-none d-lg-flex">
-            <li><a href="../index.php" class="">Home</a></li>
-            <li class="dropdown">
-              <a href="#">Products</a>
-              <ul class="dropdown_items">
-                <?php
-
-                $select_category = "Select * from `category`";
-                $result_category = mysqli_query($con, $select_category);
-                while ($row_data = mysqli_fetch_assoc($result_category)) {
-                  $category_title = $row_data['category_title'];
-                  $category_id = $row_data['category_id'];
-                  echo "<li><a href='../index.php?$category_title'>$category_title</a></li>";
-                }
-
-                ?>
-                <!-- <li><a href="vegetable.html">Vegetables</a></li>
-                <li><a href="fruits.html">Fruits</a></li>
-                <li><a href="bread.html">Bread</a></li>
-                <li><a href="butter.html">Butter and Cream</a></li>
-                <li><a href="fertilizer.html">Fertilizers</a></li>
-                <li><a href="machines.html">Farm Equipments</a></li>
-                <li><a href="oil.html">Oil and Vinegar</a></li>
-                <li><a href="seafood.html">Fish and Sea Food</a></li>
-                <li><a href="seed.html">Quality Seeds</a></li> -->
-              </ul>
-            </li>
-            <li><a href="farmers.html">Vendors</a></li>
-            <li><a href="farmers.html">Farmers</a></li>
-            <li><a href="blog.html">Blogs</a></li>
-            <li><a href="contact.html">Contact</a></li>
-            <?php
-      if(!isset($_SESSION['email'])){
-        echo "<li><a href='user_login.php'>LogIn</a></li>";
-      }else{
-        echo "<li><a href='logout.php'>LogOut</a></li>";
-      }
-      ?>
-          </ul>
-        </div>
-        <div class="nav_bar_right text-end">
-          <button class="profile pe-2">
-          <?php
-            if(!isset($_SESSION['email'])){
-              echo "<i class='fas fa-user'></i>";
-            }else{
-              $img_select =$_SESSION['email'];
-              $select = "Select * from `user_table` where email='$img_select'";
-              $result_img = mysqli_query($con,$select);
-              $num_rows= mysqli_fetch_assoc($result_img);
-              $user_img = $num_rows['user_image'];
-              $user_name = $num_rows['username'];
-              echo "<img class='rounded-circle'style='width:40px;' src='./user_images/$user_img' >  $user_name";
-            }
-            ?>
-           
-          </button>
-          
-          <div class="burger_menu">
-            <span class="burger_menu_btn"> </span>
-          </div>
-        </div>
-      </div>
-    </div>
-  </section>
-
-  <!-- Mobile-Menu Items -->
-  <nav class="nav justify-content-end">
-    <ul class="nav_items">
-      <li class="nav_item">
-        <div class="mobile-header d-flex justify-content-between">
-          <a href="#">
-            <img src="./img/company/logo.png" alt="" />
-          </a>
-          <button class="close_nav">
-            <i class="fas fa-xmark fa-2x"></i>
-          </button>
-        </div>
-      </li>
-      <li><a href="index.html" class="active">Home</a></li>
-      <li class="dropdown">
-        <a href="#">Products</a>
-        <ul class="dropdown_items">
-          <?php
-
-          $select_category = "Select * from `category`";
-          $result_category = mysqli_query($con, $select_category);
-          while ($row_data = mysqli_fetch_assoc($result_category)) {
-            $category_title = $row_data['category_title'];
-            $category_id = $row_data['category_id'];
-            echo "<li><a href='index.php?$category_title'>$category_title</a></li>";
-          }
-
-          ?>
-        </ul>
-      </li>
-      <li><a href="farmers.html">Vendors</a></li>
-      <li><a href="farmers.html">Farmers</a></li>
-      <li><a href="blog.html">Blogs</a></li>
-      <li><a href="contact.html">Contact</a></li>
       <?php
-      if(!isset($_SESSION['email'])){
-        echo "<li><a href='user_area/user_logIn.php'>LogIn</a></li>";
-      }else{
-        echo "<li><a href='user_area/logout.php'>LogOut</a></li>";
-      }
-      ?>
-    </ul>
-  </nav>
+      //php code to access user id
+      $user_ip = getIPAddress();
 
-
-    <!-- Checkout section -->
-    <section class="checkout">
-      <div class="container">
-        <?php
-        //php code to access user id
-        $user_ip = getIPAddress();
-        $get_user = "Select * from `user_table` where user_ip='$user_ip'";
-        $result_user_id = mysqli_query($con,$get_user);
-        $run_query=mysqli_fetch_array($result_user_id);
-        $user_id = $run_query['user_id'];
-
-        if(!isset($_SESSION['email'])){
-          // include('user_login.php');
-          echo "
+      if (!isset($_SESSION['email'])) {
+        // include('user_login.php');
+        echo "
           
       <div class='container'>
       <div class='form-wrapper'>
@@ -270,53 +163,130 @@ session_start();
       </div>
     </div>
  ";
-    include('../includes/connect.php');
-    include('../functions/common_functions.php');
-    if(isset($_POST['user_login'])){
-      $user_email = $_POST['email'];
-      $user_password = $_POST['password'];
-      $user_ip = getIPAddress();
+        // include('../includes/connect.php');
+        // include('../functions/common_functions.php');
+        if (isset($_POST['user_login'])) {
+          $user_email = $_POST['email'];
+          $user_password = $_POST['password'];
+          $user_ip = getIPAddress();
 
-      $select_query = "Select * from `user_table` where email='$user_email'";
-      $result = mysqli_query($con,$select_query);
-      $row_count=mysqli_num_rows($result);
-      $row_data=mysqli_fetch_assoc($result);
+          $select_query = "Select * from `user_table` where email='$user_email'";
+          $result = mysqli_query($con, $select_query);
+          $row_count = mysqli_num_rows($result);
+          $row_data = mysqli_fetch_assoc($result);
 
-      //cart item
-      $select_query_cart = "Select * from `cart_details` where ip_address='$user_ip'";
-      $result_cart = mysqli_query($con,$select_query_cart);
-      $row_count_cart= mysqli_num_rows($result_cart);
-      if($row_count>0){
-        $_SESSION['email']=$user_email;
-        if(password_verify($user_password,$row_data['password'])){
-          // echo"<script>alert('Login Successful')</script>";
-          if($row_count==1 and $row_count_cart==0){
-            $_SESSION['email']=$user_email;
-            echo "<script>alert('Login Successful')</script>";
-            echo "<script>window.open('user_profile.php','_self')</script>";
-          }else{
-            $_SESSION['email']=$user_email;
-            echo "<script>alert('Login Successful')</script>";
-            echo "<script>window.open('payment.php','_self')</script>";
+          //cart item
+          $select_query_cart = "Select * from `cart_details` where ip_address='$user_ip'";
+          $result_cart = mysqli_query($con, $select_query_cart);
+          $row_count_cart = mysqli_num_rows($result_cart);
+          if ($row_count > 0) {
+            $_SESSION['email'] = $user_email;
+            if (password_verify($user_password, $row_data['password'])) {
+              // echo"<script>alert('Login Successful')</script>";
+              if ($row_count == 1 and $row_count_cart == 0) {
+                $_SESSION['email'] = $user_email;
+                echo "<script>alert('Login Successful')</script>";
+                echo "<script>window.open('account.php','_self')</script>";
+              } else {
+                $_SESSION['email'] = $user_email;
+                echo "<script>alert('Login Successful')</script>";
+                echo "<script>window.open('payment.php','_self')</script>";
+              }
+            } else {
+              echo "<script>alert('Invalid Credentials')</script>";
+            }
+          } else {
+            echo "<script>alert('Invalid Credentials')</script>";
           }
-        }else{
-          echo"<script>alert('Invalid Credentials')</script>";
         }
-      }else{
-        echo"<script>alert('Invalid Credentials')</script>";
-      }
+      } else {
+        $email_user = $_SESSION['email'];
+        $get_user = "Select * from `user_table` where email='$email_user'";
+        $result_user_id = mysqli_query($con, $get_user);
+        $run_query = mysqli_fetch_array($result_user_id);
+        $user_id = $run_query['user_id'];
+        $total_price = 0;
+        if (isset($_GET['id']) && isset($_GET['q'])) {
+          $product_id = $_GET['id'];
+          $cart_query_price = "Select `product_id` from `products` where product_id=$product_id";
+        } else {
+          $cart_query_price = "Select * from `cart_details` where ip_address='$user_ip'";
+        }
+        $invoice_number = mt_rand();
+        $status = 'pending';
+        $result_cart_price = mysqli_query($con, $cart_query_price);
+        $count_products = mysqli_num_rows($result_cart_price);
+        while ($row_price = mysqli_fetch_array($result_cart_price)) {
+          $product_id = $row_price['product_id'];
+          $quantity = $row_price['quantity']??$_GET['q'];
+          $select_products = "Select * from `products` where product_id = $product_id";
+          $run_price = mysqli_query($con, $select_products);
+          while ($row_product_price = mysqli_fetch_array($run_price)) {
+            $product_price = $row_product_price['product_price'];
+            $discount = $row_product_price['discount'];
+            $product_after_price = floor($product_price-$product_price*$discount/100);
+            $prices =  $product_after_price*$quantity;
+            $price =  array($prices);
+            $product_values = array_sum($price);
+            $total_price += $product_values;
+          }
+        }
+        if ($count_products > 0) {
+          if (isset($_GET['id']) && isset($_GET['q'])) {
+            $get_prod = "Select `product_id` from `products` where product_id=$product_id";
+            $quantity = $_GET['q'];
+          } else {
+            $get_prod = "Select * from `cart_details` where ip_address='$user_ip'";
+            //getting quantity from cart
+            $run_cart = mysqli_query($con, $get_prod);
+            $get_item_quantity = mysqli_fetch_array($run_cart);
+            $quantity = $get_item_quantity['quantity'];
+          }
 
-    }
+          if ($quantity == 0) {
+            $quantity = 1;
+            $subtotal = $total_price;
+            // $_SESSION['actualamount']= $subtotal;
+          } else {
+            $quantity = $quantity;
+            $subtotal = $total_price * $quantity;
+            // $_SESSION['actualamount']= $subtotal;
+          }
+        } else {
+          $quantity = 1;
+          $subtotal = $total_price * $quantity;
+          // $_SESSION['actualamount']= $subtotal;
         }
-        else{
-          echo "
+
+        if (isset($_POST['update_checkout'])) {
+          $fname = $_POST['fname'];
+          $lname = $_POST['lname'];
+          $email = $_POST['email'];
+          $phone = $_POST['phone'];
+          $street_address = $_POST['street_address'];
+          $city = $_POST['city'];
+          $tole = $_POST['tole'];
+          $appartment = $_POST['appartment'];
+
+          if ($count_products > 0) {
+            $order_id = mysqli_insert_id($con);
+            $insert_query = "INSERT INTO `checkout`(`order_id`,`user_id`, `invoice_number`, `first_name`, `last_name`, `email`, `phone`, `street_address`, `city`, `tole`, `appartment`,`amount_due`,`total_products`, `date`, `ip_address`) VALUES ($order_id,$user_id,$invoice_number,'$fname','$lname','$email','$phone','$street_address','$city','$tole','$appartment',$subtotal,$count_products,NOW(),'$user_ip')";
+            $result_insert = mysqli_query($con, $insert_query);
+
+            //delete from cart
+            $empty_query = "Delete from `cart_details` where ip_address='$user_ip'";
+            $result_delete = mysqli_query($con, $empty_query);
+          }
+        }
+        echo "
         <div class='row justify-content-center'>
           <div class='col-xl-12 col-md-12 col-sm-12'>
             <div class='section-title'>
               <h3>Billing Details</h3>
             </div>
-            <div class='checkout_form'>
-              <form class='billing_form'>
+            <div class='row'>
+            <div class=' col checkout_form col-xl-6 col-md-6 col-sm-6'>
+              <form class='billing_form' method='post'>
                 <fieldset class='name'>
                   <div class='row'>
                     <div class='col-sm-6 col-md-6 col-sm-12'>
@@ -335,173 +305,202 @@ session_start();
                 </fieldset>
                 <fieldset class='tel'>
                   <label for='tel'>Phone Number</label>
-                  <input type='tel' name='tel' placeholder='Phone Number' required />
+                  <input type='tel' name='phone' placeholder='Phone Number' required />
                 </fieldset>
                 <fieldset class='address'>
                   <label for='address'> Address</label>
-                  <input type='text' name='address' placeholder='Street Address' required />
-                  <input type='text' name='address' placeholder='City' required />
-                  <input type='text' name='address' placeholder='Street Address' required />
-                  <input type='text' name='address' placeholder='Appartment,Suit (optional)' />
+                  <input type='text' name='street_address' placeholder='Street Address' required />
+                  <input type='text' name='city' placeholder='City' required />
+                  <input type='text' name='tole' placeholder='Street Address' required />
+                  <input type='text' name='appartment' placeholder='Appartment,Suit (optional)' />
                 </fieldset>
 
-                <div class='checkout_form_btn text-center'>
-                  <button type='submit' class='more-btn'>Update</button>
-                </div>
-              </form>
-            </div>
-          </div>
+          <div class='col-xl-12 col-md-12 col-sm-12 m-auto shopping_cart_bill'>
+               <h4>Total Amount</h4>
 
-          <div class='col-xl-6 col-md-6 col-sm-12 shopping_cart_bill'>
-            <h4>Total Amount</h4>
-
-            <table class='table'>
-              <tbody>
+               <table class='table'>
+                <tbody>
                 <tr>
                   <td>Cart Subtotal</td>
-                  <td>$618.00</td>
+                  <td>Rs. $total_price</td>
                 </tr>
                 <tr>
                   <td>Shipping and Handing</td>
-                  <td>$15.00</td>
+                  <td>Rs. 00.00</td>
                 </tr>
                 <tr>
                   <td>Vat</td>
-                  <td>$00.00</td>
+                  <td>Rs.00.00</td>
                 </tr>
                 <tr>
                   <td><strong>Order Total</strong></td>
-                  <td><strong>$633.00</strong></td>
+                  <td><strong>Rs. $total_price</strong></td>
                 </tr>
               </tbody>
             </table>
+            <div class='checkout_form_btn text-center w-100 '>
+                  <button type='submit' name='update_checkout' class='more-btn w-100 m-auto'>Update</button>
+                </div>
           </div>
+              </form>
+            </div>
+            <div class=' col col-xl-6 col-md-6 col-sm-6 mt-2'>
+            <div class='card border-0 col-xl-10 col-md-10 col-sm-10 m-auto'>
+                            <div class='card-header bg-white card-2 d-flex '>
+                                <p class='card-text text-muted mt-md-4  mb-2 space'>YOUR ORDER  </p>
+                                <a href='../cart.php' class='col-md-8 justify-content-right small text-muted ml-2 cursor-pointer mt-md-4 space'>EDIT SHOPPING BAG</a>
+                                <hr class='my-2'>
+                            </div>";
+        $ip = getIPAddress();
+        $email = $_SESSION['email'];
+        $select_user = mysqli_query($con, "Select `user_id` from `user_table` where email='$email'");
+        $row_id = mysqli_fetch_assoc($select_user);
+        $user_id = $row_id['user_id'];
+        // echo "$user_id";
+        if (isset($_GET['id']) && isset($_GET['q'])) {
+          $get_buy = "Select * from `products` where product_id=$product_id";
+          $qtty = $_GET['q'];
+        } else {
+          $get_buy = "Select * from `cart_details` where ip_address='$ip'";
+        }
+        $query_buy = mysqli_query($con, $get_buy);
+
+        while ($row = mysqli_fetch_assoc($query_buy)) {
+          $product_id = $row['product_id'];
+          $product_image = $row['product_image'];
+          $product_title = $row['product_title'];
+          $product_category = $row['product_category'];
+          if (isset($_GET['id']) && isset($_GET['q'])) {
+            $price = $row['product_price'];
+            $discount = $row['discount'];
+            $product_price = floor($price-$price*$discount/100);
+            $qtty = $_GET['q'];
+          } else {
+            $product_price = $row['product_price'];
+            $qtty = $row['quantity'];
+          }
+          if ($qtty == 0) {
+            $qtty = 1;
+          } else {
+            $qtty = $qtty;
+          }
+          $total_price_item = $product_price * $qtty;
+          echo "
+          <div class='row  justify-content-between text-success border-bottom px-1 py-3'>
+          <div class='col-auto col-md-7'>
+              <div class='media flex-column flex-sm-row'>
+                  <img class=' img-fluid' src='../img/product_img/$product_category/$product_image' alt='$product_title'' width='62' height='62'>
+                  <div class='media-body  my-auto'>
+                      <div class='row '>
+                          <div class='col-auto'><p class='mb-0'><b>$product_title</b></p><small class='text-muted'>$product_category</small></div>
+                      </div>
+                  </div>
+              </div>
+          </div>
+          <div class=' pl-0 flex-sm-col col-2  my-auto'> <p class='text-left'>$qtty</p></div>
+          <div class=' pl-0 flex-sm-col col-3  my-auto '><p><b>$total_price_item /-</b></p></div>
+      </div>
+          ";
+        }
+        echo "
+          </div>
+      </div>
 
           <div class='col-md-12 mt-60'>
             <div class='payment-method'>
               <h3>Choose a Payment Method</h3>
               <ul class='accordion-box'>
-                <li class='accordion block active-block'>
-                  <div class='acc-btn d-flex justify-content-between active'>
-                    <span>Credir Card / Debit Card</span>
-                    <div class='icon-outer'><i class='fas fa-angle-down'></i></div>
-                  </div>
-                  <div class='acc-content current' style='display: block'>
-                    <div class='payment-info'>
-                      <div class='row clearfix'>
-                        <div class='col-lg-6 col-md-6 col-sm-12 column'>
-                          <div class='field-input mb-3'>
-                            <input type='text' class='form-control' name='name' placeholder='Name on the Card' required='' />
-                          </div>
-                        </div>
-                        <div class='col-lg-6 col-md-6 col-sm-12 column'>
-                          <div class='field-input mb-3'>
-                            <input type='text' class='form-control' name='number' placeholder='Card Number' required='' />
-                          </div>
-                        </div>
-                        <div class='col-lg-3 col-md-6 col-sm-12 column'>
-                          <div class='field-input mb-3'>
-                            <input type='text' class='form-control' name='date' placeholder='Expiry Date' required='' />
-                          </div>
-                        </div>
-                        <div class='col-lg-3 col-md-6 col-sm-12 column'>
-                          <div class='field-input mb-3'>
-                            <input type='text' class='form-control' name='code' placeholder='Security Code' required='' />
-                          </div>
-                        </div>
-                        <div class='col-lg-6 col-md-12 col-sm-12 column'>
-                          <div class='field-input message-btn'>
-                            <button type='submit' class='more-btn'>
-                              <span>Make Payment</span>
-                            </button>
-                          </div>
-                        </div>
-                      </div>
-                    </div>
-                  </div>
-                </li>
-                <li class='accordion block'>
-                  <div class='acc-btn d-flex justify-content-between'>
-                    <span> Direct Bank Transfer</span>
-                    <div class='icon-outer'><i class='fas fa-angle-down'></i></div>
-                  </div>
-                  <div class='acc-content' style='display: none'>
-                    <div class='payment-info'>
-                      <p class='mb-0'>
-                        Make your payment directly into our bank account. Please use your Order ID as the payment reference. Your order won’t be
-                        shipped until the funds have cleared in our account.
-                      </p>
-                    </div>
-                  </div>
-                </li>
-                <li class='accordion block'>
-                  <div class='acc-btn d-flex justify-content-between'>
-                    <span> Pay Using Wallet</span>
-                    <div class='icon-outer'><i class='fas fa-angle-down'></i></div>
-                  </div>
-                  <div class='acc-content' style='display: none'>
-                    <div class='payment-info'>
-                      <p class='mb-0'>
-                        Make your payment directly into our bank account. Please use your Order ID as the payment reference. Your order won’t be
-                        shipped until the funds have cleared in our account.
-                      </p>
-                    </div>
-                  </div>
-                </li>
                 <li class='accordion block'>
                   <div class='acc-btn d-flex justify-content-between'>
                     <span> Other Payment</span>
-                    <div class='icon-outer'><i class='fas fa-angle-down'></i></div>
                   </div>
                   <div class='acc-content' style='display: none'>
-                    <div class='payment-info'>
-                      <p class='mb-0'>
-                        Make your payment directly into our bank account. Please use your Order ID as the payment reference. Your order won’t be
-                        shipped until the funds have cleared in our account.
-                      </p>
-                    </div>
+                  ";
+                  $tax = $subtotal+30;
+                  $t = 10;
+                  $psc = 10;
+                  $pdc = 10;
+                  
+                  ?>
+                  
+                  <form action=<?php echo $epay_url?> method='POST'>
+                  <input value='<?php echo $tax?>' name='tAmt' type='hidden'>
+                  <input value='<?php echo $subtotal?>' name='amt' type='hidden'>
+                  <input value='<?php echo $t?>' name='txAmt' type='hidden'>
+                  <input value='<?php echo $psc?>' name='psc' type='hidden'>
+                  <input value='<?php echo $pdc?>' name='pdc' type='hidden'>
+                  <input value=<?php echo $merchant_code?>  name='scd' type='hidden'>
+                  <input value='<?php echo $pid?>' name='pid' type='hidden'>
+                  <input value=<?php echo $successurl?> type='hidden' name='su'>
+                  <input value=<?php echo $failedurl?> type='hidden' name='fu'>
+                  <input value='Pay with Esewa Rs <?php echo $subtotal?>' type='submit' class='btn btn-primary'>
+                  </form>
+
                   </div>
                 </li>
-                <li class='accordion block'><a href='order.php?user_id=$user_id' class=''>Pay Offline</a></li>
+                <?php
+        if (isset($_GET['id']) && isset($_GET['q'])) {
+          include('./direct_order.php');
+        } else {
+          include('./order.php');
+        }
+      ?>
+        <li class='accordion block'>
+          <form action="" method="post">
+            <?php if (isset($_GET['id']) && isset($_GET['q'])) {
+              $p_id = $_GET['id'];
+              $qty = $_GET['q'];
+              echo "<input type='hidden' name='p_id' value=' $p_id ' />
+                  <input type='hidden' name='quantity' value='$qty' />
+                  <input type='hidden' name='user_id' value='$user_id' />";
+            } else {
+              echo "<input type='hidden' name='user_id' value='$user_id' />";
+            }
+            ?>
+
+            <button type='submit' name='order_submit'>Pay Offline</button>
+          </form>
+        <?php echo "</li>
               </ul>
             </div>
           </div>
         </div>";
-        }
+      }
         ?>
-      </div>
-    </section>
+    </div>
+  </section>
 
-    <!-- Footer -->
-    <?php include('../includes/footer.php');?>
+  <!-- Footer -->
+  <?php include('../includes/footer.php'); ?>
 
-    <!-- back to top -->
-    <button id="back_to_top">
-      <i class="fas fa-angle-up"></i>
-    </button>
+  <!-- back to top -->
+  <button id="back_to_top">
+    <i class="fas fa-angle-up"></i>
+  </button>
 
-    <!-- Search -->
-    <div class="search-wrapper">
-      <div class="close_search text-end">
-        <i class="fas fa-xmark"></i>
-      </div>
-      <div class="search-bar-wrapper">
-        <div class="search-bar">
-          <input type="search" name="search" id="search" placeholder="Enter Keyword Here" />
-          <i class="fa-solid fa-magnifying-glass"></i>
-        </div>
+  <!-- Search -->
+  <div class="search-wrapper">
+    <div class="close_search text-end">
+      <i class="fas fa-xmark"></i>
+    </div>
+    <div class="search-bar-wrapper">
+      <div class="search-bar">
+        <input type="search" name="search" id="search" placeholder="Enter Keyword Here" />
+        <i class="fa-solid fa-magnifying-glass"></i>
       </div>
     </div>
+  </div>
 
-    <script src="../js/bootstrap.bundle.min.js"></script>
+  <script src="../js/bootstrap.bundle.min.js"></script>
 
-    <script
-      src="https://code.jquery.com/jquery-3.6.3.js"
-      integrity="sha256-nQLuAZGRRcILA+6dMBOvcRh5Pe310sBpanc6+QBmyVM="
-      crossorigin="anonymous"
-    ></script>
+  <script src="https://code.jquery.com/jquery-3.6.3.js" integrity="sha256-nQLuAZGRRcILA+6dMBOvcRh5Pe310sBpanc6+QBmyVM=" crossorigin="anonymous"></script>
+  <script>
+    if (window.history.replaceState) {
+      window.history.replaceState(null, null, window.location.href);
+    }
+  </script>
+  <script type="text/javascript" src="../js/index.js"></script>
+  <script src="../js/script.js"></script>
+</body>
 
-    <script type="text/javascript" src="../js/index.js"></script>
-    <script src="../js/script.js"></script>
-  </body>
 </html>

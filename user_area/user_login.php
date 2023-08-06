@@ -1,6 +1,8 @@
 <!-- include connect file -->
 <?php
+include('../functions/common_functions.php');
 include('../includes/connect.php');
+
 session_start();
 ?>
 
@@ -80,99 +82,10 @@ session_start();
     -->
 
   <!-- Menu section -->
-  <section class="nav_bar">
-    <div class="container">
-      <div class="row justify-content-end align-items-center">
-        <div class="nav_bar_left">
-          <a href="index.html">
-            <img src="../img/company/logo.png" alt="" />
-          </a>
-        </div>
-        <div class="nav_bar_center">
-          <ul class="menu_items d-flex justify-content-between d-none d-lg-flex">
-            <li><a href="index.html" class="active">Home</a></li>
-            <li class="dropdown">
-              <a href="#">Products</a>
-              <ul class="dropdown_items">
-                <?php
+<?php include('../includes/dashboard/menu.php');?> 
 
-                $select_category = "Select * from `category`";
-                $result_category = mysqli_query($con, $select_category);
-                while ($row_data = mysqli_fetch_assoc($result_category)) {
-                  $category_title = $row_data['category_title'];
-                  $category_id = $row_data['category_id'];
-                  echo "<li><a href='../index.php?$category_title'>$category_title</a></li>";
-                }
 
-                ?>
-                <!-- <li><a href="vegetable.html">Vegetables</a></li>
-                <li><a href="fruits.html">Fruits</a></li>
-                <li><a href="bread.html">Bread</a></li>
-                <li><a href="butter.html">Butter and Cream</a></li>
-                <li><a href="fertilizer.html">Fertilizers</a></li>
-                <li><a href="machines.html">Farm Equipments</a></li>
-                <li><a href="oil.html">Oil and Vinegar</a></li>
-                <li><a href="seafood.html">Fish and Sea Food</a></li>
-                <li><a href="seed.html">Quality Seeds</a></li> -->
-              </ul>
-            </li>
-            <li><a href="farmers.html">Vendors</a></li>
-            <li><a href="farmers.html">Farmers</a></li>
-            <li><a href="blog.html">Blogs</a></li>
-            <li><a href="contact.html">Contact</a></li>
-            <li><a href="user_area/user_login.php">LogIn</a></li>
-          </ul>
-        </div>
-        <div class="nav_bar_right text-end">
-          <button class="profile pe-2">
-            <i class="fas fa-user"></i>
-          </button>
-          
-          <div class="burger_menu">
-            <span class="burger_menu_btn"> </span>
-          </div>
-        </div>
-      </div>
-    </div>
-  </section>
-
-  <!-- Mobile-Menu Items -->
-  <nav class="nav justify-content-end">
-    <ul class="nav_items">
-      <li class="nav_item">
-        <div class="mobile-header d-flex justify-content-between">
-          <a href="#">
-            <img src="./img/company/logo.png" alt="" />
-          </a>
-          <button class="close_nav">
-            <i class="fas fa-xmark fa-2x"></i>
-          </button>
-        </div>
-      </li>
-      <li><a href="index.html" class="active">Home</a></li>
-      <li class="dropdown">
-        <a href="#">Products</a>
-        <ul class="dropdown_items">
-          <?php
-
-          $select_category = "Select * from `category`";
-          $result_category = mysqli_query($con, $select_category);
-          while ($row_data = mysqli_fetch_assoc($result_category)) {
-            $category_title = $row_data['category_title'];
-            $category_id = $row_data['category_id'];
-            echo "<li><a href='index.php?$category_title'>$category_title</a></li>";
-          }
-
-          ?>
-        </ul>
-      </li>
-      <li><a href="farmers.html">Vendors</a></li>
-      <li><a href="farmers.html">Farmers</a></li>
-      <li><a href="blog.html">Blogs</a></li>
-      <li><a href="contact.html">Contact</a></li>
-      <li><a href="user_area/user_login.php">LogIn</a></li>
-    </ul>
-  </nav>
+<!-- login  -->
       <div class="container">
         <div class="form-wrapper">
           <div class="section-title">
@@ -181,7 +94,7 @@ session_start();
           <div class="row">
             <div class="col-sm-12 col-md-12 col-sm-12">
               <form class="sign_form" method="post">
-                <fieldset class="social-accounts">
+                <!-- <fieldset class="social-accounts">
                   <div class="apple text-center">
                     <button>
                       <i class="fab fa-apple"></i>
@@ -199,7 +112,7 @@ session_start();
                 <div class="divider mb-5">
                   <hr />
                   <p>OR</p>
-                </div>
+                </div> -->
 
                 <div class="sign-form">
                   <fieldset class="email">
@@ -214,11 +127,11 @@ session_start();
                   <div class="mb-4">
                     <label for="remember"><input type="checkbox" name="remember" id="remember" /> Remember Me</label>
                   </div>
-                  <div class="submit-btn text-center">
-                    <button type="submit" name="user_login">Login</button>
+                  <div class=" text-center">
+                    <button type="submit " class="bg-success text-light" name="user_login">Login</button>
                   </div>
                   <div>
-                    <h5 class="py-3">Don't have accout <a class="" href="signup.php">click here</a></h5>
+                    <h5 class="py-3">Don't have accout <a class="" href="./pre-signup.php">click here</a></h5>
                   </div>
                 </div>
               </form>
@@ -228,8 +141,6 @@ session_start();
       </div>
    
       <?php 
-      include('../includes/connect.php');
-      include('../functions/common_functions.php');
       if(isset($_POST['user_login'])){
         $user_email = $_POST['email'];
         $user_password = $_POST['password'];
@@ -240,6 +151,9 @@ session_start();
         $result = mysqli_query($con,$select_query);
         $row_count=mysqli_num_rows($result);
         $row_data=mysqli_fetch_assoc($result);
+        $user_role=$row_data['role'];
+        $admin='admin';
+        
 
         //cart item
         $select_query_cart = "Select * from `cart_details` where ip_address='$user_ip'";
@@ -250,16 +164,21 @@ session_start();
           
           if(password_verify($user_password,$row_data['password'])){
             // echo"<script>alert('Login Successful')</script>";
+            if($row_count==1  and $user_role=='admin'){
+              $_SESSION['email']=$user_email;
+              echo "<script>alert('Login Successful')</script>";
+              echo "<script>window.open('../dashboard/dashboard.php','_self')</script>";
+            }
             if($row_count==1 and $row_count_cart==0){
               $_SESSION['email']=$user_email;
              
               echo "<script>alert('Login Successful')</script>";
-              echo "<script>window.open('user_profile.php','_self')</script>";
+              echo "<script>window.open('../index.php','_self')</script>";
             }else{
               $_SESSION['email']=$user_email;
               
               echo "<script>alert('Login Successful')</script>";
-              echo "<script>window.open('payment.php','_self')</script>";
+              echo "<script>window.open('../index.php','_self')</script>";
             }
           }else{
             echo"<script>alert('Invalid Credentials')</script>";
@@ -298,6 +217,11 @@ session_start();
   integrity="sha256-nQLuAZGRRcILA+6dMBOvcRh5Pe310sBpanc6+QBmyVM="
   crossorigin="anonymous"
 ></script>
+<script>
+if ( window.history.replaceState ) {
+  window.history.replaceState( null, null, window.location.href );
+}
+</script>
 
 <script type="text/javascript" src="../js/index.js"></script>
 <script src="../js/script.js"></script>

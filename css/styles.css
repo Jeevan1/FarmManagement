@@ -47,7 +47,7 @@
 .nav_bar_center .menu_items li a:hover {
   color: #43aa5c;
 }
-.nav_bar_center .menu_items li a.active {
+.nav_bar_center .menu_items li a:is(:link,:active,:visited).active {
   color: #43aa5c;
 }
 .nav_bar_center .menu_items .dropdown {
@@ -180,9 +180,7 @@
 .nav_link:hover {
   color: #43aa5c;
 }
-.profile{
-  display: none;
-}
+
 
 @media (min-width: 992px) {
   .nav_bar_right .burger_menu {
@@ -569,6 +567,131 @@
   transition: all 0.5s ease-in;
 }
 .cart_wrapper .checkout:hover {
+  background-color: #43aa5c;
+}
+/* //order */
+.order_wrapper {
+  overflow: hidden;
+  max-width: 100%;
+  width: 350px;
+  height: 100vh;
+  position: fixed;
+  right: 0;
+  top: 0;
+  z-index: 999;
+  visibility: hidden;
+  opacity: 0;
+  transform: translateX(25vw);
+  background-color: #fff;
+  transition: all 0.5s ease-in;
+}
+.order_wrapper.active {
+  visibility: visible;
+  opacity: 1;
+  transform: translateX(0vw);
+}
+.order_wrapper .order_box {
+  height: 60vh;
+  background-color: #fff;
+  padding: 0 30px;
+  overflow-y: scroll;
+}
+.order_wrapper .order_box::-webkit-scrollbar {
+  width: 5px;
+  background-color: #071c1f;
+}
+.order_wrapper .order_box::-webkit-scrollbar-thumb {
+  width: 2px;
+  border-radius: 5px;
+  background-color: #43aa5c;
+}
+.order_wrapper .order_box .order_title {
+  position: sticky;
+  top: 0;
+  background-color: #fff;
+  z-index: 1;
+  padding: 15px 0;
+  border-bottom: 2px solid #ddd;
+}
+.order_wrapper .order_box .order_item {
+  position: relative;
+  padding: 30px 0;
+}
+.order_wrapper .order_box .order_item:not(:last-child) {
+  border-bottom: 2px solid #ddd;
+}
+.order_wrapper .order_box .order_item_details {
+  display: flex;
+  justify-content: flex-start;
+  align-items: center;
+}
+.order_wrapper .order_box .order_item_remove button {
+  position: absolute;
+  top: 15px;
+  left: -5px;
+  width: 25px;
+  height: 25px;
+  border-radius: 50%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background-color: #fff;
+  font-weight: 300;
+  color: red;
+  box-shadow: 0 1px 6px 0 rgba(54, 56, 61, 0.15);
+  transition: all 0.5s ease-in;
+}
+.order_wrapper .order_box .order_item_remove button:hover {
+  color: #fff;
+  background-color: red;
+}
+.order_wrapper .order_box .order_item_image {
+  width: 35%;
+  margin-right: 30px;
+}
+.order_wrapper .order_box .order_item_detail {
+  width: 65%;
+  text-align: left;
+}
+.order_wrapper .order_box .order_item_detail h5 {
+  font-weight: 600;
+  margin: 0;
+}
+.order_wrapper .order_box .order_item_detail .quantity::after {
+  content: "Kg";
+  display: inline-block;
+  padding-left: 5px;
+}
+.order_wrapper .order_box .order_item_detail .rate::before {
+  content: "NPR. ";
+  display: inline-block;
+  padding-right: 5px;
+}
+.order_wrapper .order_box .order_item_detail .rate::after {
+  content: "/kg";
+  display: inline-block;
+}
+.order_wrapper .order_total {
+  padding: 15px 0;
+  border-top: 2px solid #ddd;
+  border-bottom: 2px solid #ddd;
+}
+.order_wrapper .order_total span {
+  color: #43aa5c;
+  font-weight: 600;
+  font-size: 18px;
+}
+.order_wrapper .checkout {
+  display: inline-block;
+  text-transform: uppercase;
+  background-color: #071c1f;
+  color: #fff;
+  font-weight: 600;
+  padding: 15px;
+  margin: 15px 0;
+  transition: all 0.5s ease-in;
+}
+.order_wrapper .checkout:hover {
   background-color: #43aa5c;
 }
 
@@ -1925,3 +2048,35 @@ img {
 .category-btn {
   text-align: center;
 }/*# sourceMappingURL=styles.css.map */
+
+/* //farm-detail */
+#farmImage img{
+  height: 70vh;
+  background-position: center;
+  background-repeat: no-repeat;
+  background-size: cover;
+}
+
+.farmer_nav{
+  background-color:  #43aa5c;
+   position: relative;
+}
+.farmer_nav li a{
+  font-size: 18px;
+  color: #FFF;
+}
+#farm_product{
+  position: relative;
+}
+#farm-products{
+  position: relative;
+  margin-top: 20px;
+}
+#farm-plans{
+  position: relative;
+  margin-top: 20px;
+}
+#farm-blog{
+  position: relative;
+  margin-top: 20px;
+}

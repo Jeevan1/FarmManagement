@@ -26,16 +26,19 @@
           <h1 class="sm-heading">Explore</h1>
           <ul>
             <li>
-              <a href="vegetable.html">Product</a>
+              <a href="./display_all_products.php">Product</a>
             </li>
             <li>
-              <a href="wishlist.html">WishList</a>
+              <a href="blog.php">Blogs</a>
             </li>
             <li>
-              <a href="farmers.html">Farmers</a>
+              <a href="farmers.php">Farmers</a>
             </li>
             <li>
-              <a href="cart.html">Cart</a>
+              <a href="suppliers.php">Suppliers</a>
+            </li>
+            <li>
+              <a href="cart.php">Cart</a>
             </li>
           </ul>
         </div>
@@ -66,7 +69,7 @@
               </div>
               <div class="detail">
                 <span>Email</span>
-                <span>support@digitalfarm.com</span>
+                <span>support@farmmanagement.com</span>
               </div>
             </li>
           </ul>
